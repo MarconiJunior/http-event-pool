@@ -1,22 +1,86 @@
-# Version catalog is a central place for you to declare and version dependencies
-# https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
-# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
-
 [versions]
 kotlin = "2.3.0"
+
+# Kotlinx
 kotlinxDatetime = "0.7.1"
 kotlinxSerializationJSON = "1.9.0"
 kotlinxCoroutines = "1.10.2"
 
+# Android
+androidGradlePlugin = "8.5.0"
+compileSdk = "34"
+minSdk = "24"
+
+# Compose
+composeBom = "2024.06.00"
+composeCompiler = "1.5.14"
+
+# Network
+retrofit = "2.9.0"
+okhttp = "4.12.0"
+
+# DI (se quiser no futuro)
+koin = "3.5.6"
+
+# Test
+junit = "4.13.2"
+mockk = "1.13.10"
+
+# KSP
+ksp = "2.3.0-1.0.21"
+
 [libraries]
-kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+# Kotlin base
+kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
+
+# Kotlinx ecosystem
 kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinxSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJSON" }
 kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 
-# Libraries can be bundled together for easier import
+# Retrofit / Network
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofitConverter = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+
+# Compose (via BOM)
+composeBom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+composeUi = { module = "androidx.compose.ui:ui" }
+composeRuntime = { module = "androidx.compose.runtime:runtime" }
+composeMaterial3 = { module = "androidx.compose.material3:material3" }
+
+# Test
+junit = { module = "junit:junit", version.ref = "junit" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+
 [bundles]
-kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
+
+kotlinxEcosystem = [
+    "kotlinxDatetime",
+    "kotlinxSerialization",
+    "kotlinxCoroutines"
+]
+
+network = [
+    "retrofit",
+    "retrofitConverter",
+    "okhttp"
+]
+
+compose = [
+    "composeUi",
+    "composeRuntime",
+    "composeMaterial3"
+]
 
 [plugins]
-kotlinPluginSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
