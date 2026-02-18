@@ -23,3 +23,8 @@ include(":app")
 include(":utils")
 
 rootProject.name = "http-event-pool"
+include("core")
+include("annotations")
+include("retrofit")
+include("compose")
+include("sample")
