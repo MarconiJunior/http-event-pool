@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 group = "br.com.marconi"
@@ -10,6 +11,10 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(libs.okhttp)
+    implementation(libs.retrofit)
+    implementation(libs.kotlinxCoroutines)
     testImplementation(kotlin("test"))
 }
 

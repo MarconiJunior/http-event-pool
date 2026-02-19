@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":annotations"))
+    implementation(libs.kotlinxCoroutines)
     testImplementation(kotlin("test"))
 }
 
